@@ -39,7 +39,15 @@ Released under MIT license (http://opensource.org/licenses/MIT).  See LICENSE fi
 Usage
 =====
 
-Sample table
+Edit your Eloquent model to extend 'Heroicpixels\Filterable\Filterable'.
+
+   class Object extends Heroicpixels\Filterable\Filterable {
+      // ...
+   }
+   
+In the above example, class Object corresponds to table 'objects':
+
+Sample table 'objects'.
 ------------
 |  id  |  color  |  shape     |  total  |
 |:-----|:--------|:-----------|:--------|
@@ -67,6 +75,12 @@ You can also alias the columns if you prefer not to reveal them:
 For example:
 
     http://www.your-site/?col=blue&sha=round&tot=500
+    
+To filter results, simply pass the columns to Eloquent using filterColumns():
+
+   $objects = Object::filterColumns($columns)->get()->toArray();
+
+The following examples demonstrate how query string parameters can be used.
 <a name="single-value"></a>
 Single Value
 ------------

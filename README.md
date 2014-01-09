@@ -19,9 +19,9 @@ Add the package to 'require' in your composer.json file:
         "heroicpixels/laravel-eloquent-filterable": "1.0.x"
     },
 
-Run 'composer-update' from the command line:
+Run 'composer dump-autoload' from the command line:
 
-    #composer-update
+    #composer dump-autoload
     
 Register the service provider in 'app/config/app.php'.  Service provider:
 

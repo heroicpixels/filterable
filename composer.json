@@ -1,9 +1,12 @@
 {
     "name": "heroicpixels/filterable",
-    "description": "",
+    "type": "library",
+    "description": "Laravel package for dynamically filtering Eloquent results using URL query string.",
+    "license": "MIT",
+    "keywords": ["laravel", "laravel 4", "eloquent", "database"],
     "authors": [
         {
-            "name": "Heroicpixels",
+            "name": "Dave Hodgins",
             "email": "dave@heroicpixels.com"
         }
     ],

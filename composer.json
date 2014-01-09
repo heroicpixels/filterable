@@ -1,5 +1,5 @@
 {
-    "name": "heroicpixels/laravel-eloquent-filterable",
+    "name": "heroicpixels/filterable",
     "description": "",
     "authors": [
         {
@@ -16,7 +16,7 @@
             "src/migrations"
         ],
         "psr-0": {
-            "Heroicpixels\\LaravelEloquentFilterable\\": "src/"
+            "Heroicpixels\\Filterable\\": "src/"
         }
     },
     "minimum-stability": "dev"

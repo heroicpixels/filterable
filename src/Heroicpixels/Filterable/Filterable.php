@@ -25,8 +25,8 @@ abstract class Filterable extends Eloquent {
 	{
 		$this->f = array('bools'			=> array('and' => 'where', 'or' => 'orWhere'),
 					  	 'columns' 			=> array(), 
-					 	 'defaultOperator'	=> Config::get('filterable::defaultOperator'),
-						 'defaultWhere'		=> Config::get('filterable::defaultWhere'),
+					 	 'defaultOperator'	=> '=',
+						 'defaultWhere'		=> 'where',
 					  	 'filters'			=> array(),
 					  	 'operators'		=> array('=', '<', '>', '!='),
 					  	 'qstring' 			=> array());	

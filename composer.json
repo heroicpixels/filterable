@@ -1,0 +1,23 @@
+{
+    "name": "heroicpixels/laravel-eloquent-filterable",
+    "description": "",
+    "authors": [
+        {
+            "name": "Heroicpixels",
+            "email": "dave@heroicpixels.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Heroicpixels\\LaravelEloquentFilterable\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

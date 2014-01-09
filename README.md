@@ -41,14 +41,12 @@ Usage
 
 Edit your Eloquent model to extend 'Heroicpixels\Filterable\Filterable'.
 
-   class Object extends Heroicpixels\Filterable\Filterable {
-      // ...
-   }
+    class Object extends Heroicpixels\Filterable\Filterable {
+        // ...
+    }
    
 In the above example, class Object corresponds to table 'objects':
 
-Sample table 'objects'.
-------------
 |  id  |  color  |  shape     |  total  |
 |:-----|:--------|:-----------|:--------|
 |  1   |  red    |  square    |  150    |
@@ -78,7 +76,7 @@ For example:
     
 To filter results, simply pass the columns to Eloquent using filterColumns():
 
-   $objects = Object::filterColumns($columns)->get()->toArray();
+    $objects = Object::filterColumns($columns)->get()->toArray();
 
 The following examples demonstrate how query string parameters can be used.
 <a name="single-value"></a>

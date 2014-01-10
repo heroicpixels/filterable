@@ -79,6 +79,34 @@ To filter results, simply pass the columns to Eloquent using filterColumns():
 
     $objects = Object::filterColumns($columns)->get()->toArray();
 
+You can also filter joins:
+
+    $columns = array('color' => 'objects.color',
+                     'name' => 'objects.name',
+                     'shape' => 'objects.shape',
+                     'category' => 'cat_object.cat_id');
+    $objects = Object::join('cat_object', 'objects.id', '=', 'cat_object.object_id')
+                       ->filterColumns($columns)
+                       ->get()->toArray();
+
+And you can filter eager loads:
+
+    /**
+     * Columns available in main query
+     */
+    $columns = array('color' => 'objects.color',
+                     'name' => 'objects.name',
+                     'shape' => 'objects.shape');
+    $objects = Object::with(array('categories' => function($q) {
+                   /**
+                    * Columns available to sub-query
+                    */
+                   $columns = array('category' => 'cat_object.cat_id');
+                   $q->filterColumns($columns);
+               }))->filterColumns($columns)
+               ->get()
+               ->toArray();
+
 The following examples demonstrate how query string parameters can be used.
 <a name="single-value"></a>
 Single Value

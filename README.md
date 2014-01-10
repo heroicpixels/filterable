@@ -10,6 +10,7 @@ This package gives you a convenient way to automatically filter Eloquent results
     * [Multiple Parameters](#multiple-parameters)
     * [Boolean Operators](#boolean-operators)
     * [Comparison Operators](#comparison-operators)
+
 <a name="installation"></a>
 Installation
 ============

@@ -17,7 +17,7 @@ Installation
 Add the package to 'require' in your composer.json file:
 
     "require": {
-        "heroicpixels/laravel-eloquent-filterable": "dev-master"
+        "heroicpixels/filterable": "dev-master"
     },
 
 Run 'composer dump-autoload' from the command line:

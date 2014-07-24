@@ -2,6 +2,12 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ *	This file is part of the Heroicpixels/Filterable package for Laravel.
+ *
+ *	@license http://opensource.org/licenses/MIT MIT
+ */
+
 class FilterableServiceProvider extends ServiceProvider {
 
 	/**
@@ -11,15 +17,15 @@ class FilterableServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->package('heroicpixels/filterable');
-	}
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->package('heroicpixels/filterable');
+    }
 
 	/**
 	 * Register the service provider.

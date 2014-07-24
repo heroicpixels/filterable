@@ -4,37 +4,39 @@
  *
  *	@license http://opensource.org/licenses/MIT MIT
  */
-use Config, DB, Eloquent;
 
 /**
- *	A trait for dynamically filtering Eloquent models based on query string paremeters.
+ *	A trait for dynamically filtering Eloquent models based on query string parameters.
  *
  *	@package Filterable
  */
 abstract class Filterable extends Eloquent {
+
 	/**
 	 *	Data structures and default values
 	 *
 	 *	@var array
 	 */
 	public $f;
+
 	/**
 	 *	Setup data structures and default values
 	 */
 	public function resetFilterableOptions()
 	{
 		$this->f = array('bools'			=> array('and' => 'where', 'or' => 'orWhere'),
-					  	 'columns' 			=> array(), 
+					  	 'columns' 			=> array(),
 					 	 'defaultOperator'	=> '=',
 						 'defaultWhere'		=> 'where',
 					  	 'filters'			=> array(),
 					  	 'operators'		=> array('=', '<', '>', '!='),
-					  	 'qstring' 			=> array());	
+					  	 'qstring' 			=> array());
 		return $this;
 	}
+
 	/**
 	 *	Specify the columns that can be dynamically filtered from the query string.
-	 *	Columns can be referenced directly - array('column1', 'column2') - or they 
+	 *	Columns can be referenced directly - array('column1', 'column2') - or they
 	 *	can be aliased - array('co1' => 'column1', 'co2' => 'column2').
 	 *
 	 *	@param array $columns The columns to use
@@ -45,7 +47,7 @@ abstract class Filterable extends Eloquent {
 	public function setColumns($columns, $append = true)
 	{
 		if ( is_null($this->f) ) {
-			$this->resetFilterableOptions();	
+			$this->resetFilterableOptions();
 		}
 		if ( count(array_filter(array_keys($columns), 'is_string')) == 0 ) {
 			// Numeric indexes, so build new associative index array
@@ -53,20 +55,21 @@ abstract class Filterable extends Eloquent {
 		}
 		if ( !$append ) {
 			// Overwrite data
-			$this->f['columns'] = array();	
+			$this->f['columns'] = array();
 		}
 		$this->f['columns'] = array_merge($this->f['columns'], $columns);
 		return $this;
 	}
-	/**
-	 *	Parse the query string
-	 *
-	 *	@param $str array The query string
-	 *	@param $append Append or overwrite existing query string data
-	 *	@param $default Default to $_SERVER['QUERY_STRING'] if $str isn't given
-	 *
-	 *	@return $this
-	 */
+
+    /**
+     *
+     * Parse the query string
+     *
+     * @param array $str The query string
+     * @param bool $append Append or overwrite the existing query string data
+     * @param bool $default Default to $_SERVER['QUERY_STRING'] if $str isn't given
+     * @return $this
+     */
 	public function setQuerystring(array $str = array(), $append = true, $default = true)
 	{
 		if ( is_null($this->f) ) {
@@ -108,12 +111,15 @@ abstract class Filterable extends Eloquent {
 		}
 		return $this;
 	}
-	/**
-	 *	Laravel Eloquent query scope.
-	 *
-	 *	@param $query Eloquent query object
-	 *	@return Eloquent query object
-	 */
+
+    /**
+     * Laravel Eloquent query scope.
+     *
+     * @param $query \Illuminate\Database\Eloquent query object
+     * @param array $columns
+     * @param bool $validate
+     * @return \Illuminate\Database\Eloquent object
+     */
 	public function scopeFilterColumns($query, $columns = array(), $validate = false)
 	{
 		if ( sizeof($columns) > 0 ) {
@@ -153,6 +159,7 @@ abstract class Filterable extends Eloquent {
 		}
 		return $query;
 	}
+
 	/**
 	 *
 	 *	Validate the specified columns against the table's actual columns.	
@@ -172,4 +179,5 @@ abstract class Filterable extends Eloquent {
 		}
 		die('You must have Doctrine installed in order to validate columns');
 	}
+
 }

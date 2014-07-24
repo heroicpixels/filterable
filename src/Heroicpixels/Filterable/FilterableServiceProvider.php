@@ -11,15 +11,15 @@ class FilterableServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->package('heroicpixels/filterable');
-	}
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->package('heroicpixels/filterable');
+    }
 
 	/**
 	 * Register the service provider.

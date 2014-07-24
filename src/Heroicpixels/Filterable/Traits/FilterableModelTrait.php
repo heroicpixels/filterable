@@ -1,6 +1,12 @@
 <?php namespace Heroicpixels\Filterable\Traits;
 
 /**
+ *  This file is part of the Heroicpixels/Filterable package for Laravel.
+ *
+ *  @license http://opensource.org/licenses/MIT MIT
+ */
+
+/**
  * Class FilterableModelTrait
  * @package Heroicpixels\Filterable\Traits
  */

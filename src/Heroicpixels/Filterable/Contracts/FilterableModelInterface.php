@@ -1,6 +1,12 @@
 <?php namespace Heroicpixels\Filterable\Contracts;
 
 /**
+ *  This file is part of the Heroicpixels/Filterable package for Laravel.
+ *
+ *  @license http://opensource.org/licenses/MIT MIT
+ */
+
+/**
  * Interface FilterableModelInterface
  * @package Heroicpixels\Filterable\Contracts
  */

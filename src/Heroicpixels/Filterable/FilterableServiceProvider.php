@@ -2,6 +2,12 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ *	This file is part of the Heroicpixels/Filterable package for Laravel.
+ *
+ *	@license http://opensource.org/licenses/MIT MIT
+ */
+
 class FilterableServiceProvider extends ServiceProvider {
 
 	/**

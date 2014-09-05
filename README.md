@@ -2,6 +2,10 @@ Filterable
 =======
 This package gives you a convenient way to automatically filter Eloquent results based on query string parameters in the URL. Filterable parses the query string, compares it with columns that you'd like to automatically filter, then creates a dynamic scope that is used by Eloquent to construct the SQL.
 
+
+Table of contents
+----------------------------------
+ * [Requirements](#requirements)
 * [Installation](#installation)
 * [Copyright &amp; License](#license)
 * [Usage](#usage)
@@ -11,10 +15,21 @@ This package gives you a convenient way to automatically filter Eloquent results
     * [Boolean Operators](#boolean-operators)
     * [Comparison Operators](#comparison-operators)
 
+
+<a name="requirements"></a>
+
+Requirements
+------------
+* Laravel 4.1 or above
+* PHP 5.4 or above
+
+
 <a name="installation"></a>
+
 Installation
-============
-Add the package to 'require' in your composer.json file:
+----------------
+
+Add the package to 'require' section in your composer.json file:
 
     "require": {
         "heroicpixels/filterable": "dev-master"
@@ -22,30 +37,36 @@ Add the package to 'require' in your composer.json file:
 
 Run 'composer dump-autoload' from the command line:
 
-    #composer dump-autoload
+    composer dump-autoload
     
 Register the service provider in 'app/config/app.php'.  Service provider:
 
     'providers' => array(
         \\...
-        'Heroicpixels\Filterable\FilterableServiceProvider',
+        'Heroicpixels\Filterable\Laravel\FilterableServiceProvider',
         \\...
     );
+
 <a name="license"></a>
+
 License
-=======
+----------
 Copyright 2014 Dave Hodgins
 Released under MIT license (http://opensource.org/licenses/MIT).  See LICENSE file for details.
+
 <a name="usage"></a>
+
 Usage
-=====
+---------
 
-Edit your Eloquent model to extend 'Heroicpixels\Filterable\Filterable'.
+Implement the Filterable interface and import the FilterableTrait.
 
-    class Object extends Heroicpixels\Filterable\Filterable {
-        // ...
+    class Object implements \Heroicpixels\Filterable\FilterableInterface
+    {
+        use \Heroicpixels\Filterable\FilterableTrait;
     }
-   
+
+
 In the above example, class Object corresponds to table 'objects':
 
 |  id  |  color  |  shape     |  total  |

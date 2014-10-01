@@ -4,7 +4,9 @@
  *
  *	@license http://opensource.org/licenses/MIT MIT
  */
-use Config, DB, Eloquent;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
  *	A trait for dynamically filtering Eloquent models based on query string paremeters.
@@ -24,11 +26,14 @@ abstract class Filterable extends Eloquent {
 	public function resetFilterableOptions()
 	{
 		$this->f = array('bools'			=> array('and' => 'where', 'or' => 'orWhere'),
+						 'callbacks'		=> array(),
 					  	 'columns' 			=> array(), 
 					 	 'defaultOperator'	=> '=',
 						 'defaultWhere'		=> 'where',
 					  	 'filters'			=> array(),
-					  	 'operators'		=> array('=', '<', '>', '!='),
+						 'orderby'			=> 'orderby',
+						 'order'			=> 'order',
+					  	 'operators'		=> array('=', '<', '>', '!=', 'like'),
 					  	 'qstring' 			=> array());	
 		return $this;
 	}
@@ -54,6 +59,14 @@ abstract class Filterable extends Eloquent {
 		if ( !$append ) {
 			// Overwrite data
 			$this->f['columns'] = array();	
+		}
+
+		foreach ( $columns as $k => $v ) {
+			// Strip off callbacks
+			if ( is_callable($v) ) {
+				$this->f['callbacks'][] = $v;
+				unset($columns[$k]);	
+			}
 		}
 		$this->f['columns'] = array_merge($this->f['columns'], $columns);
 		return $this;
@@ -84,6 +97,9 @@ abstract class Filterable extends Eloquent {
 				$this->f['filters'] = array();
 			}
 			foreach ( $this->f['qstring'] as $k => $v ) {
+				if ( $v == '' ) {
+					continue;
+				}
 				$thisColumn = isset($this->f['columns'][$k]) ? $this->f['columns'][$k] : false;
 				if ( $thisColumn ) {
 					// Query string part matches column (or alias)
@@ -119,37 +135,48 @@ abstract class Filterable extends Eloquent {
 		if ( sizeof($columns) > 0 ) {
 			// Set columns that can be filtered
 			$this->setColumns($columns);
-			// Validate columns
-			if ( $validate ) {
-				$this->validateColumns();	
-			}
-			// Ensure that query string is parsed at least once
-			if ( sizeof($this->f['filters']) == 0 ) {
-				$this->setQuerystring();
-			}
-			// Apply conditions to Eloquent query object
-			if ( sizeof($this->f['filters']) > 0 ) {
-				foreach ( $this->f['filters'] as $k => $v ) {
-					$where = $v['boolean'];	
-					if ( is_array($v['val']) ) {
-						if ( isset($v['val']['start']) && isset($v['val']['end']) ) {
-							// BETWEEN a AND b
-							$query->whereBetween($k, array($v['val']['start'], $v['val']['end']));
-						} else {
-							// a = b OR c = d OR...
-							$query->{$where}(function($q) use ($k, $v, $query)
-							{
-								foreach ( $v['val'] as $key => $val ) {
-									$q->orWhere($k, $v['operator'], $val);	
-								}	
-							});
-						}
+		}
+		// Validate columns
+		if ( $validate ) {
+			$this->validateColumns();	
+		}
+		// Ensure that query string is parsed at least once
+		if ( sizeof($this->f['filters']) == 0 ) {
+			$this->setQuerystring();
+		}
+		// Apply conditions to Eloquent query object
+		if ( sizeof($this->f['filters']) > 0 ) {
+			foreach ( $this->f['filters'] as $k => $v ) {
+				$where = $v['boolean'];	
+				if ( is_array($v['val']) ) {
+					if ( isset($v['val']['start']) && isset($v['val']['end']) ) {
+						// BETWEEN a AND b
+						$query->whereBetween($k, array($v['val']['start'], $v['val']['end']));
 					} else {
-						// a = b
-						$query->{$where}($k, $v['operator'], $v['val']);
+						// a = b OR c = d OR...
+						$query->{$where}(function($q) use ($k, $v, $query)
+						{
+							foreach ( $v['val'] as $key => $val ) {
+								$q->orWhere($k, $v['operator'], $val);	
+							}	
+						});
 					}
+				} else {
+					// a = b
+					$query->{$where}($k, $v['operator'], $v['val']);
 				}
 			}
+		}
+		// Apply callbacks
+		if ( sizeof($this->f['callbacks']) > 0 ) {
+			foreach ( $this->f['callbacks'] as $v ) {
+				$v($query);	
+			}
+		}
+		// Sorting
+		if ( isset($this->f['qstring'][$this->f['orderby']]) && isset($this->f['columns'][$this->f['qstring'][$this->f['orderby']]]) ) {
+			$order = isset($this->f['qstring'][$this->f['order']]) ? $this->f['qstring'][$this->f['order']] : 'asc';
+			$query->orderBy($this->f['columns'][$this->f['qstring'][$this->f['orderby']]], $order);
 		}
 		return $query;
 	}

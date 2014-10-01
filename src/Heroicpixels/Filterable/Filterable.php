@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- *	A trait for dynamically filtering Eloquent models based on query string paremeters.
+ *	An abstract class for dynamically filtering Eloquent models based on query string paremeters.
  *
  *	@package Filterable
  */

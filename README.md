@@ -40,9 +40,9 @@ Released under MIT license (http://opensource.org/licenses/MIT).  See LICENSE fi
 Usage
 =====
 
-NOTE: this package also includes a version (FilterableWrapper.php) that can be used to wrap a DB or Eloquent object, and a version (FilterableTrait.php) that can be used as a trait with an Eloquent model.
+NOTE: this package also includes a version (**FilterableWrapper.php**) that can be used to wrap a DB or Eloquent object, and a version (**FilterableTrait.php**) that can be used as a trait with an Eloquent model.
 
-Filterable.php
+**Filterable.php**
 
 Edit your Eloquent model to extend 'Heroicpixels\Filterable\Filterable'.
 
@@ -50,14 +50,14 @@ Edit your Eloquent model to extend 'Heroicpixels\Filterable\Filterable'.
         // ...
     }
     
-FilterableWrapper.php
+**FilterableWrapper.php**
 
 Give FilterableWrapper a DB or Eloquent object.
 
     $object = DB::table('objects');
     $objects = FilterableWrapper($object);
 
-FilterableTrait.php
+**FilterableTrait.php**
 
     class Object extends Eloquent {
     

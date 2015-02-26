@@ -18,7 +18,7 @@ class FilterableServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('heroicpixels/filterable');
+		//
 	}
 
 	/**

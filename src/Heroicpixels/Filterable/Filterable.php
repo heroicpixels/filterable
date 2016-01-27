@@ -34,7 +34,7 @@ abstract class Filterable extends Eloquent {
 			'filters'			=> array(),
 			'orderby'			=> 'orderby',
 			'order'				=> 'order',
-			'operators'			=> array('=', '<', '>', '!=', 'like'),
+			'operators'			=> array('=', '<', '<=', '>', '>=', '!=', 'like'),
 			'qstring' 			=> array()
 		);	
 		return $this;

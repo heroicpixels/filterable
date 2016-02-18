@@ -29,7 +29,7 @@ trait FilterableTrait {
 			'filters'			=> array(),
 			'orderby'			=> 'orderby',
 			'order'				=> 'order',
-			'operators'			=> array('=', '<', '>', '!=', 'like'),
+			'operators'			=> array('=', '<', '<=', '>', '>=', '!=', 'like'),
 			'qstring' 			=> array()
 		);	
 		return $this;
